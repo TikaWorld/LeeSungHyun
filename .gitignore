@@ -1,0 +1,12 @@
+HELP.md
+.git
+
+### Python ###
+__pycache__
+venv
+
+### Pycharm IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr

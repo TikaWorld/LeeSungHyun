@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from module.projectRepository import ProjectRepository
+from module.repository.projectRepository import ProjectRepository
 
 
 class Project(Resource):

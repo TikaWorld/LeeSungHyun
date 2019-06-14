@@ -6,7 +6,7 @@ class ProjectRepository:
         self.url = "localhost"
         self.port = 3306
         self.user = "root"
-        self.password = ""
+        self.password = "password123"
         self.db = "leepository"
         self.table = "projects"
 
@@ -29,3 +29,7 @@ class ProjectRepository:
 
         return result
 
+
+if __name__ == '__main__':
+    projectRepository = ProjectRepository()
+    print(projectRepository.getProject("test"))

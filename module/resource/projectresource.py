@@ -1,16 +1,20 @@
+import json
+
 from flask_restful import Resource
 
-from module.repository import project
+from module.repository.project import Project
 from module.repository.projectRepository import ProjectRepository
 
 
-class Project(Resource):
+class ProjectResource(Resource):
     def __init__(self):
         self.projectRepository = ProjectRepository()
 
     def get(self, project_name):
 #        return self.projectRepository.getProject(project_name)
-        return project.Project.query.filter_by(project_name="test").all()
+        result = Project.query.all()
+        print(result)
+        return result
 
 #    def post(self):
 #        return NotImplemented

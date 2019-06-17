@@ -30,9 +30,10 @@ class Project(db.Model):
         if self.content:
             chk_content = True
 
-        return "project_name : %s\n, admission_grade : %s\n, project_image : %s\n, video_url : %s\n, content : %s " \
+        return "project_name : %s, admission_grade : %s, project_image : %s, video_url : %s, content : %s " \
                % (self.projectName, self.admissionGrade, chk_image, chk_video, chk_content)
 
     def as_dict(self):
-        return {x.name: getattr(self, x.name) for x in self.__table__.columns}
-
+        result = {x.name: getattr(self, x.name) for x in self.__table__.columns}
+        result["projectImage"] = result["projectImage"].decode("utf-8")
+        return result

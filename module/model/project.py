@@ -7,14 +7,16 @@ class Project(db.Model):
 
     projectName = db.Column(db.String(255), primary_key=True)
     admissionGrade = db.Column(db.String(20))
+    developerList = db.Column(db.Text)
     projectImage = db.Column(db.LargeBinary)
     videoUrl = db.Column(db.String(255))
     content = db.Column(db.Text)
 #    created = db.Column(db.DateTime)
 
-    def __init__(self, project_name, admission_grade, project_image=None, video_url=None, content=None):
+    def __init__(self, project_name, admission_grade, developer_list, project_image=b"", video_url="", content=""):
         self.projectName = project_name
         self.admissionGrade = admission_grade
+        self.developerList = developer_list
         self.projectImage = project_image
         self.videoUrl = video_url
         self.content = content
@@ -30,10 +32,24 @@ class Project(db.Model):
         if self.content:
             chk_content = True
 
-        return "project_name : %s, admission_grade : %s, project_image : %s, video_url : %s, content : %s " \
-               % (self.projectName, self.admissionGrade, chk_image, chk_video, chk_content)
+        return "project_name : %s, admission_grade : %s, developer_list: %s " \
+               "project_image : %s, video_url : %s, content : %s " \
+               % (self.projectName, self.admissionGrade, self.developerList, chk_image, chk_video, chk_content)
+
+    def add(self):
+        db.session.add(self)
+        print(self)
+        db.session.commit()
 
     def as_dict(self):
         result = {x.name: getattr(self, x.name) for x in self.__table__.columns}
-        result["projectImage"] = result["projectImage"].decode("utf-8")
+        try:
+            result["developerList"] = result["developerList"].split(":")
+        except (AttributeError, TypeError):
+            pass
+        try:
+            result["projectImage"] = result["projectImage"].decode("utf-8")
+        except (AttributeError, TypeError):
+            pass
+
         return result

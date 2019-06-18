@@ -2,7 +2,8 @@ from flask import Flask
 from flask_restful import Api
 
 from database import db
-from module.resource.projectresource import ProjectResource
+from module.resource.projectResource import ProjectResource
+from module.resource.projects import Projects
 
 app = Flask(__name__)
 
@@ -13,6 +14,7 @@ db.init_app(app)
 
 api = Api(app)
 api.add_resource(ProjectResource, "/project/<string:project_name>")
+api.add_resource(Projects, "/projects")
 
 
 if __name__ == '__main__':

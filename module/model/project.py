@@ -36,9 +36,21 @@ class Project(db.Model):
                "project_image : %s, video_url : %s, content : %s " \
                % (self.projectName, self.admissionGrade, self.developerList, chk_image, chk_video, chk_content)
 
-    def add(self):
-        db.session.add(self)
-        print(self)
+    def update_context(self, new):
+        self.projectName = new.projectName
+        self.admissionGrade = new.admissionGrade
+        self.developerList = new.developerList
+        self.projectImage = new.projectImage
+        self.videoUrl = new.videoUrl
+        self.content = new.content
+
+    def insert_or_update(self):
+        current = Project.query.filter_by(projectName=self.projectName).first()
+
+        if current:
+            current.update_context(self)
+        else:
+            db.session.add(self)
         db.session.commit()
 
     def as_dict(self):

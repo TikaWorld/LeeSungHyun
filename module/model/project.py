@@ -1,4 +1,4 @@
-from database import db
+from extension import db
 
 
 class Project(db.Model):

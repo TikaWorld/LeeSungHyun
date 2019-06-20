@@ -1,6 +1,7 @@
 import json
 
 from flask import request
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
 from module.model.project import Project
@@ -13,6 +14,7 @@ def list2str(list_data):
 
 class Projects(Resource):
 
+    @jwt_required
     def post(self):
         response = {}
         project_name = request.form["projectName"]
@@ -24,6 +26,6 @@ class Projects(Resource):
 
         new_project = Project(project_name, admission_grade, developer_list, project_image, video_url, content)
         new_project.insert_or_update()
-        response["result"] = "200"
+        response["code"] = "200"
 
         return response

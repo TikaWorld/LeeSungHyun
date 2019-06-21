@@ -5,7 +5,8 @@ from module.model.project import Project
 
 class ProjectAPI(Resource):
 
-    def get(self, project_name):
+    @staticmethod
+    def get(project_name):
         response = Project.query.filter_by(projectName=project_name).first()
         if response:
             response = response.as_dict()

@@ -5,7 +5,8 @@ from flask_restful import Resource
 
 class AdminAPI(Resource):
 
-    def post(self):
+    @staticmethod
+    def post():
         response = {}
         if not request.form:
             return {"msg": "Missing JSON in request"}, 400

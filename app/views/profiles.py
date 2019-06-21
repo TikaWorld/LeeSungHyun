@@ -2,10 +2,10 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
-from module.model.profile import Profile
+from app.models.profile import Profile
 
 
-class Projects(Resource):
+class Profiles(Resource):
 
     @staticmethod
     def get():

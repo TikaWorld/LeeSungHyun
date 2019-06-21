@@ -2,7 +2,7 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
-from module.model.project import Project
+from app.models.project import Project
 
 
 def list2str(list_data):

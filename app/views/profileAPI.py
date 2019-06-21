@@ -1,13 +1,13 @@
 from flask_restful import Resource
 
-from module.model.profile import Profile
+from app.models.profile import Profile
 
 
 class ProfileAPI(Resource):
 
     @staticmethod
-    def get(project_name):
-        response = Profile.query.filter_by(projectName=project_name).first()
+    def get(profile_name):
+        response = Profile.query.filter_by(profile_name=profile_name).first()
         if response:
             response = response.as_dict()
             response["code"] = "200"

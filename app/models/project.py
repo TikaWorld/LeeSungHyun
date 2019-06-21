@@ -1,16 +1,16 @@
-from extension import db
+from app.extension import main_db
 
 
-class Project(db.Model):
+class Project(main_db.Model):
     __tablename__ = 'projects'
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}
 
-    projectName = db.Column(db.String(255), primary_key=True)
-    admissionGrade = db.Column(db.String(20))
-    developerList = db.Column(db.Text)
-    projectImage = db.Column(db.LargeBinary)
-    videoUrl = db.Column(db.String(255))
-    content = db.Column(db.Text)
+    projectName = main_db.Column(main_db.String(255), primary_key=True)
+    admissionGrade = main_db.Column(main_db.String(20))
+    developerList = main_db.Column(main_db.Text)
+    projectImage = main_db.Column(main_db.LargeBinary)
+    videoUrl = main_db.Column(main_db.String(255))
+    content = main_db.Column(main_db.Text)
 #    created = db.Column(db.DateTime)
 
     def __init__(self, project_name, admission_grade, developer_list, project_image=b"", video_url="", content=""):
@@ -50,8 +50,8 @@ class Project(db.Model):
         if current:
             current.update_context(self)
         else:
-            db.session.add(self)
-        db.session.commit()
+            main_db.session.add(self)
+        main_db.session.commit()
 
     def as_dict(self):
         result = {x.name: getattr(self, x.name) for x in self.__table__.columns}

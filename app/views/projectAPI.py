@@ -1,13 +1,13 @@
 from flask_restful import Resource
 
-from module.model.project import Project
+from app.models.project import Project
 
 
 class ProjectAPI(Resource):
 
     @staticmethod
     def get(project_name):
-        response = Project.query.filter_by(projectName=project_name).first()
+        response = Project.query.filter_by(project_name=project_name).first()
         if response:
             response = response.as_dict()
             response["code"] = "200"

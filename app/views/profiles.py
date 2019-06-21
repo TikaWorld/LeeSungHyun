@@ -17,8 +17,9 @@ class Profiles(Resource):
 
         return response
 
+    @staticmethod
     @jwt_required
-    def post(self):
+    def post():
         response = {}
         project_name = request.form["profileName"]
         admission_grade = request.form["admissionGrade"]

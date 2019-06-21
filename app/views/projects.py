@@ -22,8 +22,9 @@ class Projects(Resource):
 
         return response
 
+    @staticmethod
     @jwt_required
-    def post(self):
+    def post():
         response = {}
         project_name = request.form["projectName"]
         admission_grade = request.form["admissionGrade"]

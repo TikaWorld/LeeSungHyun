@@ -1,6 +1,4 @@
-import json
-
-from flask import request, jsonify
+from flask import request
 from flask_jwt_extended import create_access_token
 from flask_restful import Resource
 
@@ -8,7 +6,7 @@ from flask_restful import Resource
 class AdminAPI(Resource):
 
     def post(self):
-        respones = {}
+        response = {}
         if not request.form:
             return {"msg": "Missing JSON in request"}, 400
 
@@ -23,6 +21,6 @@ class AdminAPI(Resource):
             return {"msg": "Bad username or password"}, 401
 
         # Identity can be any data that is json serializable
-        respones["access_token"] = create_access_token(identity=username)
+        response["access_token"] = create_access_token(identity=username)
 
-        return respones, 200
+        return response, 200

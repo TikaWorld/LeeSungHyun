@@ -26,11 +26,11 @@ class Projects(Resource):
     @jwt_required
     def post():
         response = {}
-        project_name = request.form["projectName"]
-        admission_grade = request.form["admissionGrade"]
-        developer_list = list2str(request.form.getlist("developerList"))
-        project_image = request.form["projectImage"].encode()
-        video_url = request.form["videoUrl"]
+        project_name = request.form["project_name"]
+        admission_grade = request.form["admission_grade"]
+        developer_list = list2str(request.form.getlist("developer_list"))
+        project_image = request.form["project_image"].encode()
+        video_url = request.form["video_url"]
         content = request.form["content"]
 
         new_project = Project(project_name, admission_grade, developer_list, project_image, video_url, content)

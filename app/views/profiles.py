@@ -21,9 +21,9 @@ class Profiles(Resource):
     @jwt_required
     def post():
         response = {}
-        project_name = request.form["profileName"]
-        admission_grade = request.form["admissionGrade"]
-        project_image = request.form["profileImage"].encode()
+        project_name = request.form["profile_name"]
+        admission_grade = request.form["admission_grade"]
+        project_image = request.form["profile_image"].encode()
         content = request.form["content"]
 
         new_profile = Profile(project_name, admission_grade, project_image, content)

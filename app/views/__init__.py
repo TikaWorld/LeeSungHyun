@@ -3,7 +3,7 @@ from flask_restful import Api
 
 
 def route(flask_app: Flask):
-    from app.views import adminAPI, profileAPI, profiles, projectAPI, projects
+    from app.views import adminAPI, profileAPI, projectAPI
 
     handle_exception_func = flask_app.handle_exception
     handle_user_exception_func = flask_app.handle_user_exception
@@ -13,13 +13,13 @@ def route(flask_app: Flask):
 
     # - blueprint, api object initialize
     api_v1_blueprint = Blueprint('api_v1', __name__)
-    api = Api(api_v1_blueprint, prefix='/')
+    api = Api(api_v1_blueprint, prefix='')
 
     # - route
     api.add_resource(adminAPI.AdminAPI, '/login')
-    api.add_resource(profiles.Profiles, '/profiles')
+    api.add_resource(profileAPI.ProfileListAPI, '/profiles')
     api.add_resource(profileAPI.ProfileAPI, '/profile/<string:profile_name>')
-    api.add_resource(projects.Projects, '/projects')
+    api.add_resource(projectAPI.ProjectLIstAPI, '/projects')
     api.add_resource(projectAPI.ProjectAPI, '/project/<string:project_name>')
 
     # - register blueprint

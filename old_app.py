@@ -4,7 +4,7 @@ from flask_restful import Api
 from app.extension import main_db, jwt
 from app.views.adminAPI import AdminAPI
 from app.views.projectAPI import ProjectAPI
-from app.views.projects import Projects
+from app.views.projectAPI import ProjectLIstAPI
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ jwt.init_app(app)
 
 api = Api(app)
 api.add_resource(ProjectAPI, "/project/<string:project_name>")
-api.add_resource(Projects, "/projects")
+api.add_resource(ProjectLIstAPI, "/projects")
 api.add_resource(AdminAPI, "/login")
 
 

@@ -63,5 +63,4 @@ class Project(main_db.Model):
             result["project_image"] = result["project_image"].decode("utf-8")
         except (AttributeError, TypeError):
             pass
-
         return result

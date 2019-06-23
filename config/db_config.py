@@ -4,7 +4,7 @@ DB_NAME = 'leepository'
 
 
 class LocalDBConfig:
-    MAIN_DB_URL = 'mysql+pymysql://root:password123@localhost/{}?charset=utf8'.format(
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:password123@localhost/{}?charset=utf8'.format(
         DB_NAME
     )
 

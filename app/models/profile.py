@@ -1,15 +1,17 @@
-from app.extension import main_db
+from sqlalchemy import Column, String, LargeBinary, Text
+
+from app.models import Base
 
 
-class Profile(main_db.Model):
+class Profile(Base):
     __tablename__ = 'profiles'
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}
 
-    profile_name = main_db.Column(main_db.String(255), primary_key=True)
-    admission_grade = main_db.Column(main_db.String(20))
-    project_name = main_db.Column(main_db.String(255))
-    profile_image = main_db.Column(main_db.LargeBinary)
-    content = main_db.Column(main_db.Text)
+    profile_name = Column(String(255), primary_key=True)
+    admission_grade = Column(String(20))
+    project_name = Column(String(255))
+    profile_image = Column(LargeBinary)
+    content = Column(Text)
 
     def __init__(self, profile_name, admission_grade, project_name, profile_image=b"", content=""):
         self.profile_name = profile_name
@@ -43,8 +45,8 @@ class Profile(main_db.Model):
         if current:
             current.update_context(self)
         else:
-            main_db.session.add(self)
-        main_db.session.commit()
+            Base.session.add(self)
+        Base.session.commit()
 
     def as_dict(self):
         result = {x.name: getattr(self, x.name) for x in self.__table__.columns}

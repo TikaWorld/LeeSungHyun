@@ -2,13 +2,15 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
+from app.extension import main_db
 from app.models.project import Project
 
 
 class ProjectAPI(Resource):
 
     def get(self, project_name):
-        response = Project.query.filter_by(project_name=project_name).first()
+        session = main_db.session
+        response = Project.get_first_or_abort_on_none(session, Project.project_name == project_name)
         if response:
             response = response.as_dict()
             response["code"] = "200"
@@ -25,8 +27,9 @@ def list2str(list_data):
 
 class ProjectLIstAPI(Resource):
     def get(self):
+        session = main_db.session
         response = {"list": [], "code": ""}
-        result = Project.query.all()
+        result = Project.get_all(session, None)
         for project in result:
             response["list"].append(project.as_dict())
         response["code"] = "200"

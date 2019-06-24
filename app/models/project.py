@@ -1,16 +1,18 @@
-from app.extension import main_db
+from sqlalchemy import Column, String, Text, LargeBinary
+
+from app.models import Base
 
 
-class Project(main_db.Model):
+class Project(Base):
     __tablename__ = 'projects'
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}
 
-    project_name = main_db.Column(main_db.String(255), primary_key=True)
-    admission_grade = main_db.Column(main_db.String(20))
-    developer_list = main_db.Column(main_db.Text)
-    project_image = main_db.Column(main_db.LargeBinary)
-    video_url = main_db.Column(main_db.String(255))
-    content = main_db.Column(main_db.Text)
+    project_name = Column(String(255), primary_key=True)
+    admission_grade = Column(String(20))
+    developer_list = Column(Text)
+    project_image = Column(LargeBinary)
+    video_url = Column(String(255))
+    content = Column(Text)
 #    created = db.Column(db.DateTime)
 
     def __init__(self, project_name, admission_grade, developer_list, project_image=b"", video_url="", content=""):
@@ -20,21 +22,6 @@ class Project(main_db.Model):
         self.project_image = project_image
         self.video_url = video_url
         self.content = content
-
-    def __repr__(self):
-        chk_image = False
-        chk_video = False
-        chk_content = False
-        if self.project_image:
-            chk_image = True
-        if self.video_url:
-            chk_video = True
-        if self.content:
-            chk_content = True
-
-        return "project_name : %s, admission_grade : %s, developer_list: %s " \
-               "project_image : %s, video_url : %s, content : %s " \
-               % (self.project_name, self.admission_grade, self.developer_list, chk_image, chk_video, chk_content)
 
     def update_context(self, new):
         self.project_name = new.projectName
@@ -50,8 +37,8 @@ class Project(main_db.Model):
         if current:
             current.update_context(self)
         else:
-            main_db.session.add(self)
-        main_db.session.commit()
+            Base.session.add(self)
+        Base.session.commit()
 
     def as_dict(self):
         result = {x.name: getattr(self, x.name) for x in self.__table__.columns}

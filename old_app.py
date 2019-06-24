@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 
-from app.extension import main_db, jwt
+from app.extension import Base, jwt
 from app.views.adminAPI import AdminAPI
 from app.views.projectAPI import ProjectAPI
 from app.views.projectAPI import ProjectLIstAPI
@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password123@localh
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['JWT_SECRET_KEY'] = 'super-secret'
-main_db.init_app(app)
+Base.init_app(app)
 jwt.init_app(app)
 
 api = Api(app)

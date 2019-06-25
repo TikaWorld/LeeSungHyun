@@ -19,19 +19,6 @@ class Profile(Base):
         self.project_name = project_name
         self.profile_image = profile_image
         self.content = content
-
-    def __repr__(self):
-        chk_image = False
-        chk_content = False
-        if self.profile_image:
-            chk_image = True
-        if self.content:
-            chk_content = True
-
-        return "profile_name : %s, admission_grade : %s, project_name: %s " \
-               "profile_image : %s, content : %s " \
-               % (self.profile_name, self.admission_grade, self.project_name, chk_image, chk_content)
-
     def update_context(self, new):
         self.profile_name = new.projectName
         self.admission_grade = new.admissionGrade
@@ -40,7 +27,7 @@ class Profile(Base):
         self.content = new.content
 
     def insert_or_update(self):
-        current = Profile.query.filter_by(projectName=self.profile_name).first()
+        current = Profile.query.filter_by(profile_name=self.profile_name).first()
 
         if current:
             current.update_context(self)

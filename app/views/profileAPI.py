@@ -2,32 +2,31 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
+from app.extension import main_db
 from app.models.profile import Profile
 
 
 class ProfileAPI(Resource):
 
     def get(self, profile_name):
-        response = Profile.query.filter_by(profile_name=profile_name).first()
-        if response:
-            response = response.as_dict()
-            response["code"] = "200"
-        else:
-            response = Profile("", "", "").as_dict()
-            response["code"] = "400"
-        return response
+        err = "Nonexistent Profile"
+        session = main_db.session
+        response = Profile.get_first_or_abort_on_none(session, Profile.project_name == profile_name, message=err)
+        response = response.as_dict()
+
+        return response, 200
 
 
 class ProfileListAPI(Resource):
 
     def get(self):
+        session = main_db.session
         response = {"list": [], "code": ""}
-        result = Profile.query.all()
+        result = Profile.get_all(session, None)
         for project in result:
             response["list"].append(project.as_dict())
-        response["code"] = "200"
 
-        return response
+        return response, 200
 
     @jwt_required
     def post(self):

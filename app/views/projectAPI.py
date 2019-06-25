@@ -9,15 +9,12 @@ from app.models.project import Project
 class ProjectAPI(Resource):
 
     def get(self, project_name):
+        err = "Nonexistent Project"
         session = main_db.session
-        response = Project.get_first_or_abort_on_none(session, Project.project_name == project_name)
-        if response:
-            response = response.as_dict()
-            response["code"] = "200"
-        else:
-            response = Project("", "", "").as_dict()
-            response["code"] = "400"
-        return response
+        response = Project.get_first_or_abort_on_none(session, Project.project_name == project_name, message=err)
+        response = response.as_dict()
+
+        return response, 200
 
 
 def list2str(list_data):
@@ -32,9 +29,8 @@ class ProjectLIstAPI(Resource):
         result = Project.get_all(session, None)
         for project in result:
             response["list"].append(project.as_dict())
-        response["code"] = "200"
 
-        return response
+        return response, 200
 
     @jwt_required
     def post(self):

@@ -19,21 +19,6 @@ class Profile(Base):
         self.project_name = project_name
         self.profile_image = profile_image
         self.content = content
-    def update_context(self, new):
-        self.profile_name = new.projectName
-        self.admission_grade = new.admissionGrade
-        self.project_name = new.developerList
-        self.profile_image = new.projectImage
-        self.content = new.content
-
-    def insert_or_update(self):
-        current = Profile.query.filter_by(profile_name=self.profile_name).first()
-
-        if current:
-            current.update_context(self)
-        else:
-            Base.session.add(self)
-        Base.session.commit()
 
     def as_dict(self):
         result = {x.name: getattr(self, x.name) for x in self.__table__.columns}

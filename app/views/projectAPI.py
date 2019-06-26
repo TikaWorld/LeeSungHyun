@@ -35,15 +35,18 @@ class ProjectLIstAPI(Resource):
     @jwt_required
     def post(self):
         response = {}
+        session = main_db.session
         project_name = request.form["project_name"]
         admission_grade = request.form["admission_grade"]
         developer_list = list2str(request.form.getlist("developer_list"))
-        project_image = request.form["projectImage"].encode()
-        video_url = request.form["videoUrl"]
+        project_image = request.form["project_image"].encode()
+        video_url = request.form["video_url"]
         content = request.form["content"]
 
         new_project = Project(project_name, admission_grade, developer_list, project_image, video_url, content)
-        new_project.insert_or_update()
-        response["code"] = "200"
+        session.add(new_project)
+        session.commit()
+        session.refresh(new_project)
+        response["msg"] = "Success"
 
-        return response
+        return response, 200

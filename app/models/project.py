@@ -23,22 +23,6 @@ class Project(Base):
         self.video_url = video_url
         self.content = content
 
-    def update_context(self, new):
-        self.project_name = new.projectName
-        self.admission_grade = new.admissionGrade
-        self.developer_list = new.developerList
-        self.project_image = new.projectImage
-        self.video_url = new.videoUrl
-        self.content = new.content
-
-    def insert_or_update(self):
-        current = Project.query.filter_by(projectName=self.project_name).first()
-
-        if current:
-            current.update_context(self)
-        else:
-            Base.session.add(self)
-        Base.session.commit()
 
     def as_dict(self):
         result = {x.name: getattr(self, x.name) for x in self.__table__.columns}

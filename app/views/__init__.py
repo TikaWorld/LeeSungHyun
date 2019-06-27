@@ -1,6 +1,8 @@
 from flask import Blueprint, Flask
 from flask_restful import Api
 
+from app.views import mainAPI
+
 
 def route(flask_app: Flask):
     from app.views import adminAPI, profileAPI, projectAPI
@@ -16,6 +18,7 @@ def route(flask_app: Flask):
     api = Api(api_v1_blueprint, prefix='')
 
     # - route
+    api.add_resource(mainAPI.MainAPI, '/')
     api.add_resource(adminAPI.AdminAPI, '/login')
     api.add_resource(profileAPI.ProfileListAPI, '/profiles')
     api.add_resource(profileAPI.ProfileAPI, '/profile/<string:profile_name>')

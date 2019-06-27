@@ -1,0 +1,9 @@
+{
+    "dev": {
+        "app_function": "run.app",
+        "profile_name": null,
+        "project_name": "scripts",
+        "runtime": "python3.7",
+        "s3_bucket": "zappa-z9itrbduv"
+    }
+}

@@ -5,7 +5,7 @@ from app.views import mainAPI
 
 
 def route(flask_app: Flask):
-    from app.views import adminAPI, profileAPI, projectAPI
+    from app.views import adminAPI, studentAPI, projectAPI
 
     handle_exception_func = flask_app.handle_exception
     handle_user_exception_func = flask_app.handle_user_exception
@@ -20,8 +20,8 @@ def route(flask_app: Flask):
     # - route
     api.add_resource(mainAPI.MainAPI, '/')
     api.add_resource(adminAPI.AdminAPI, '/login')
-    api.add_resource(profileAPI.ProfileListAPI, '/profiles')
-    api.add_resource(profileAPI.ProfileAPI, '/profile/<string:profile_name>')
+    api.add_resource(studentAPI.StudentListAPI, '/profiles')
+    api.add_resource(studentAPI.StudentAPI, '/profile/<string:profile_name>')
     api.add_resource(projectAPI.ProjectLIstAPI, '/projects')
     api.add_resource(projectAPI.ProjectAPI, '/project/<string:project_name>')
 

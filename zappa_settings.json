@@ -1,8 +1,8 @@
 {
     "dev": {
-        "app_function": "run.app",
-        "profile_name": null,
-        "project_name": "scripts",
+        "app_function": "production_app.application",
+        "profile_name": "default",
+        "project_name": "LeeSungHyun",
         "runtime": "python3.7",
         "s3_bucket": "zappa-z9itrbduv"
     }

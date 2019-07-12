@@ -20,8 +20,8 @@ def route(flask_app: Flask):
     # - route
     api.add_resource(mainAPI.MainAPI, '/')
     api.add_resource(adminAPI.AdminAPI, '/login')
-    api.add_resource(studentAPI.StudentListAPI, '/profiles')
-    api.add_resource(studentAPI.StudentAPI, '/profile/<string:profile_name>')
+    api.add_resource(studentAPI.StudentListAPI, '/students')
+    api.add_resource(studentAPI.StudentAPI, '/student/<string:student_name>')
     api.add_resource(projectAPI.ProjectLIstAPI, '/projects')
     api.add_resource(projectAPI.ProjectAPI, '/project/<string:project_name>')
 

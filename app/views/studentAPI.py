@@ -8,10 +8,10 @@ from app.models.student import Student
 
 class StudentAPI(Resource):
 
-    def get(self, profile_name):
+    def get(self, student_name):
         err = "Nonexistent Profile"
         session = main_db.session
-        response = Student.get_first_or_abort_on_none(session, Student.project_name == profile_name, message=err)
+        response = Student.get_first_or_abort_on_none(session, Student.student_name == student_name, message=err)
         response = response.as_dict()
 
         return response, 200

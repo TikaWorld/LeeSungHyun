@@ -14,9 +14,7 @@ class Base(_Base):
     __abstract__ = True
 
     @classmethod
-    def _build_query(
-        cls, session: Session, where_clause=None, order_by=None
-    ):
+    def _build_query(cls, session: Session, where_clause=None, order_by=None):
         query = session.query(cls)
 
         if where_clause is not None:
@@ -29,7 +27,10 @@ class Base(_Base):
 
     @classmethod
     def get_all(
-        cls, read_session: Session, where_clause: Union[ClauseElement, bool]=None, order_by: ClauseElement=None
+        cls,
+        read_session: Session,
+        where_clause: Union[ClauseElement, bool] = None,
+        order_by: ClauseElement = None,
     ):
         """
         전달된 인자들을 통해 쿼리를 생성하고, .all()의 결과를 반환합니다.
@@ -43,7 +44,10 @@ class Base(_Base):
 
     @classmethod
     def get_first_without_none_check(
-        cls, read_session: Session, where_clause: Union[ClauseElement, bool]=True, order_by: ClauseElement=None
+        cls,
+        read_session: Session,
+        where_clause: Union[ClauseElement, bool] = True,
+        order_by: ClauseElement = None,
     ):
         """
         전달된 인자들을 통해 쿼리를 생성하고, None 여부에 상관없이 .first()의 결과를 리턴합니다.
@@ -57,8 +61,12 @@ class Base(_Base):
 
     @classmethod
     def get_first_or_abort_on_none(
-        cls, read_session: Session, where_clause: Union[ClauseElement, bool]=True, order_by: ClauseElement=None,
-        code: int=404, message: str=None
+        cls,
+        read_session: Session,
+        where_clause: Union[ClauseElement, bool] = True,
+        order_by: ClauseElement = None,
+        code: int = 404,
+        message: str = None,
     ):
         """
         1. 전달된 인자들을 통해 쿼리를 생성하고
@@ -79,7 +87,7 @@ class Base(_Base):
 
     @classmethod
     def delete(
-        cls, write_session: Session, where_clause: Union[ClauseElement, bool]=True
+        cls, write_session: Session, where_clause: Union[ClauseElement, bool] = True
     ):
         """
         전달된 session을 통해 cls에 대해 where_clause로 필터해 쿼리하고, 결과를 모두 delete합니다.
@@ -89,7 +97,7 @@ class Base(_Base):
 
     @classmethod
     def delete_and_commit(
-        cls, write_session: Session, where_clause: Union[ClauseElement, bool]=True
+        cls, write_session: Session, where_clause: Union[ClauseElement, bool] = True
     ):
         """
         where_clause를 통해 delete 후, commit까지 수행합니다.
@@ -166,10 +174,8 @@ class DB:
 
 class MainDB(DB):
     def extract_create_engine_kwargs(self, flask_app):
-        return {
-            'name_or_url': flask_app.config['MAIN_DB_URL']
-        }
+        return {"name_or_url": flask_app.config["MAIN_DB_URL"]}
 
     @property
     def attribute_name_on_g(self):
-        return 'main_db_session'
+        return "main_db_session"

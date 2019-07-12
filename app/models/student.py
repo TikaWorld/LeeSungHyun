@@ -4,8 +4,8 @@ from app.models import Base
 
 
 class Student(Base):
-    __tablename__ = 'students'
-    __table_args__ = {'mysql_collate': 'utf8_general_ci'}
+    __tablename__ = "students"
+    __table_args__ = {"mysql_collate": "utf8_general_ci"}
 
     student_name = Column(String(255), primary_key=True)
     admission_grade = Column(String(20))
@@ -13,7 +13,9 @@ class Student(Base):
     student_image = Column(LargeBinary)
     content = Column(Text)
 
-    def __init__(self, student_name, admission_grade, project_name, student_image=b"", content=""):
+    def __init__(
+        self, student_name, admission_grade, project_name, student_image=b"", content=""
+    ):
         self.student_name = student_name
         self.admission_grade = admission_grade
         self.project_name = project_name

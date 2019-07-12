@@ -14,16 +14,16 @@ def route(flask_app: Flask):
     # 따라서 두 함수를 임시 저장해 두고, register_blueprint 이후 함수를 재할당하도록 함
 
     # - blueprint, api object initialize
-    api_v1_blueprint = Blueprint('api_v1', __name__)
-    api = Api(api_v1_blueprint, prefix='')
+    api_v1_blueprint = Blueprint("api_v1", __name__)
+    api = Api(api_v1_blueprint, prefix="")
 
     # - route
-    api.add_resource(mainAPI.MainAPI, '/')
-    api.add_resource(adminAPI.AdminAPI, '/login')
-    api.add_resource(studentAPI.StudentListAPI, '/students')
-    api.add_resource(studentAPI.StudentAPI, '/student/<string:student_name>')
-    api.add_resource(projectAPI.ProjectLIstAPI, '/projects')
-    api.add_resource(projectAPI.ProjectAPI, '/project/<string:project_name>')
+    api.add_resource(mainAPI.MainAPI, "/")
+    api.add_resource(adminAPI.AdminAPI, "/login")
+    api.add_resource(studentAPI.StudentListAPI, "/students")
+    api.add_resource(studentAPI.StudentAPI, "/student/<string:student_name>")
+    api.add_resource(projectAPI.ProjectLIstAPI, "/projects")
+    api.add_resource(projectAPI.ProjectAPI, "/project/<string:project_name>")
 
     # - register blueprint
     flask_app.register_blueprint(api_v1_blueprint)

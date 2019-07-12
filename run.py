@@ -5,5 +5,5 @@ from constants.local_run import RUN_SETTING
 
 app = create_app(LocalDBConfig, LocalLevelConfig)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(**RUN_SETTING)

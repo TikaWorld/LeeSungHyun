@@ -7,18 +7,18 @@ from app.models.student import Student
 
 
 class StudentAPI(Resource):
-
     def get(self, student_name):
         err = "Nonexistent Profile"
         session = main_db.session
-        response = Student.get_first_or_abort_on_none(session, Student.student_name == student_name, message=err)
+        response = Student.get_first_or_abort_on_none(
+            session, Student.student_name == student_name, message=err
+        )
         response = response.as_dict()
 
         return response, 200
 
 
 class StudentListAPI(Resource):
-
     def get(self):
         session = main_db.session
         response = {"list": [], "code": ""}
@@ -38,7 +38,9 @@ class StudentListAPI(Resource):
         project_image = request.form["student_image"].encode()
         content = request.form["content"]
 
-        new_student = Student(student_name, admission_grade, project_name, project_image, content)
+        new_student = Student(
+            student_name, admission_grade, project_name, project_image, content
+        )
         session.add(new_student)
         session.commit()
         session.refresh(new_student)
